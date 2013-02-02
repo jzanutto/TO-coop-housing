@@ -16,3 +16,6 @@
 
 # Ignore swap files
 *.swp
+
+config/database.yml
+logfile
