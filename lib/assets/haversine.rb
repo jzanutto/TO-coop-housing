@@ -8,9 +8,9 @@
 # Descrption: Example script implementing Haversine formula to identify distance in KM between 2 coordinates
 # Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
 #
-class Haversine
+module Haversine
 
-    def self.coorDist(lat1, lon1, lat2, lon2)
+    def coorDist(lat1, lon1, lat2, lon2)
 
         earthRadius = 6371 # Earth's radius in KM
 
