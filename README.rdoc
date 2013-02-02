@@ -1,6 +1,11 @@
+==== Toronto Co-op Housing Mapper!
+
+We take some bits of information provided by the user and link this to our database in order to generate a heat map weighted by price and distance via the Google Maps API.
+
+
 === LIVE SITE
 
-http://to-coop-housing.aws.af.cm/
+http://to-coop-housing.herokuapp.com/
 
 === GETTING STARTED
 
@@ -11,10 +16,11 @@ bundle install
 bundle exec rails s
 
 You'll need postgreSQL installed to access the console for the database.
+It also needs to be running before you can make any database queries (unless you like front ends).
 
 Running 'bundle exec rails c' runs the console and lets you manipulate the models.
 
-Deploy with 'af update'
+Deploy with 'git push heroku master'
 
 
 === PROJECT PURPOSE
@@ -23,3 +29,7 @@ We want to make life easier co-op students (or anyone in general) to find short-
 Ideally we want the user to be able to find a company by searching, and then we'll find you nearby living accommodations with prices and locations.
 
 We're working with a jQuery front end, rails is our webservice and we have postgreSQL as our database.
+
+=== IMPORTING THE DATA AND CHANGING THE SCHEMA
+
+This was done mid-way through the hack (because I'm stingy for some reason).  You have to open postgres and remove the created_at and updated_at columns in order to correctly import the data, then you run a copy command on the system to export the csv files saved into scripts into their proper tables.
