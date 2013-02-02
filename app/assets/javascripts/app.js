@@ -152,7 +152,7 @@
                     // living cost
                     var costAverage = data.avg;
                     var costOutput  = $('<li class="cost">');
-                    costOutput.append('<span>Average monthly rent of living ' + distance + ' km from ' + companyName + ' is:</span>')
+                    costOutput.append('The average monthly rent of living <span>' + distance + ' km</span> from <span>' + companyName + '</span> is:')
                     costOutput.append('<strong>$' + costAverage.toFixed(2) + '</strong>');
                     $('#app ul').find('.cost').remove();
                     $('#app ul').append(costOutput);
