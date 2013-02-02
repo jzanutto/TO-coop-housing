@@ -14,21 +14,21 @@
 ActiveRecord::Schema.define(:version => 20130202003737) do
 
   create_table "companies", :force => true do |t|
-    t.string   "Name"
-    t.string   "Location"
-    t.float    "Lat"
-    t.float    "Long"
-    t.string   "Postal"
+    t.string   "name"
+    t.string   "location"
+    t.float    "lat"
+    t.float    "long"
+    t.string   "postal"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "housings", :force => true do |t|
-    t.string   "Location"
-    t.float    "Lat"
-    t.float    "Long"
-    t.string   "Postal"
-    t.float    "Price"
+    t.string   "location"
+    t.float    "lat"
+    t.float    "long"
+    t.string   "postal"
+    t.float    "price"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

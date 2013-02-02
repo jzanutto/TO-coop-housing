@@ -1,5 +1,5 @@
 class Housing < ActiveRecord::Base
-  attr_accessible :Lat, :Location, :Long, :Postal, :Price
-  validates :Lat, :presence=>true
-  validates :Long, :presence=>true
+  attr_accessible :lat, :location, :long, :postal, :price
+  validates :lat, :presence=>true
+  validates :long, :presence=>true
 end

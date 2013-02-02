@@ -7,20 +7,21 @@ gem 'rails', '3.2.11'
 
 gem 'pg'
 
+gem 'nokogiri', :require => 'open-uri'
+gem 'httparty'
+gem 'json'
+
 # in production environments by default.
 group :assets do
 # gem 'sass-rails',   '~> 3.2.3'
 # gem 'coffee-rails', '~> 3.2.1'
-
-  gem 'nokogiri', :require => 'open-uri'
-  gem 'httparty'
-  gem 'json'
   
   gem "therubyracer"
   gem 'less-rails'
 
   # Gems used only for assets and not required
   gem 'jquery-rails'
+  # Gems used only for assets and not required
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 

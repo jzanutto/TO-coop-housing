@@ -7,13 +7,11 @@ applications:
       info:
         mem: 256M
         description: Rails Application
-        exec: 
+        exec: bundle exec rails s
     infra: aws
     url: ${name}.${target-base}
     mem: 256M
     instances: 1
     services:
-      to-coop-housing:
-        type: postgresql
       postgresql-7cc7d:
         type: postgresql
