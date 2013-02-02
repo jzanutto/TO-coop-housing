@@ -14,6 +14,7 @@ body,
 }
 
 #app{
+    display: block;
     position: relative;
     
     .controls{
@@ -24,62 +25,62 @@ body,
 
         background: @white;
         box-shadow: 1px 2px 8px @shadow;
-        border-radius: 3px;
-        box-sizing: padding-box;
-        padding: @padding;
+        border-radius: 5px;
+        display: block;
         position: absolute;
         top: @padding; left: @padding;
-        width: @controlBoxWidth;
+        width: @controlBoxWidth + @padding * 2;
         z-index: 1;
 
         /*=====================================================================
             Start Main Controls
           =====================================================================*/
 
-        h1{
-            font-size: 18px;
-            line-height: 24px;
-            margin: 0 0 @padding;
-
-            span{
-                color: @special;
-                text-transform: uppercase;
-            }
-        }
-
         ul{
             margin: 0;
             padding: 0;
 
             li{
+                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(lighten(@body, 80%)), to(lighten(@body, 78%)));
+                border-top: 1px solid lighten(@body, 75%);
+                box-shadow: 0 1px 2px lighten(@shadow, 50%);
                 list-style: none;
-                margin-bottom: @padding / 2;
+                padding: (@padding / 2) @padding;
                 overflow: hidden;
 
-                &:last-child{
-                    margin-bottom: 0;
-                }
-
+                @labelHeight: 50px;
+                @tipLineHeight: 12px;
                 @selectWidth: 170px;
                 @selectHeight: 30px;
+
+                h1{
+                    font-size: 18px;
+                    line-height: 24px;
+                    margin: (@padding / 2) 0;
+
+                    span{
+                        color: @special;
+                        text-transform: uppercase;
+                    }
+                }
 
                 label,
                 select{
                     float: left;
-                    height: @padding;
                 }
 
                 label{
                     font-size: 15px;
                     font-weight: bold;
-                    line-height: @padding / 2;
+                    height: @labelHeight;
+                    line-height: @tipLineHeight * 2;
                     width: @controlBoxWidth - @selectWidth - @selectHeight;
 
                     span{
                         display: block;
                         font-size: 9px;
                         font-weight: normal;
-                        line-height: @padding / 4;
+                        line-height: @tipLineHeight;
                         text-transform: uppercase;
                     }
                 }
@@ -88,7 +89,7 @@ body,
                     border: 1px solid #ccc;
                     box-sizing: border-box;
                     float: left;
-                    margin: ((@padding - @selectHeight) / 2) 0;
+                    margin: ((@labelHeight - @selectHeight) / 2) 0;
                     margin-left: @selectHeight;
                     padding: 2px;
                     width: @selectWidth; height: @selectHeight;
