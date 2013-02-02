@@ -7,25 +7,33 @@ class MapController < ApplicationController
 
   # find the proximity of items to the company
   def search
-    @company = Company.find_by_name(params[:name])
+    params[:company] ||= 0
+    @company = Company.find(params[:company])
     @company = JSON.parse(@company)[0]
     # render :json => @company.to_json and return unless @company.blank?
     # render :json => {error: "No record  found"}, status: :not_found and return if @company.blank?
     @houses = []
-    lat = @company["lat"]
-    long = @company["long"]
-    loc1 = [lat, long]
-    distance = 0;
-    Housing.all.each do |house|
-      house = house.to_json
-      house = JSON.parse(house)
-      loc2 = [house["lat"],house["long"]]
-      distance = distance(loc1, loc2)
-      puts "\n\n\n\n\n\n\n\n\n"+distance.to_s
-      @houses << house unless distance.to_f  > params[:distance].to_f
+    unless @company.blank?
+      lat = @company["lat"]
+      long = @company["long"]
+      loc1 = [lat, long]
+      distance = 0;
+      average = 0.00;
+      Housing.all.each do |house|
+        house = house.to_json
+        house = JSON.parse(house)
+        loc2 = [house["lat"],house["long"]]
+        distance = distance(loc1, loc2)
+  #     puts "\n\n\n\n\n\n\n\n\n"+distance.to_s
+        @houses << house unless distance.to_f  > params[:distance].to_f
+        average += @houses.last["price"]
+      end
+      distance/=@houses.length;
+      render :json => {houses: @houses.to_json.to_a, avg: average} and return unless @houses.blank?
+      render :json => {error: "No houses found :("}, status: :not_found
+    else
+      render :json => {error: "No companies found :/"}, status: :not_found
     end
-    render :json => @houses.to_json and return unless @houses.blank?
-    render :json => {error: "No houses found :("}, status: :not_found
   end
 
   # get all companies
