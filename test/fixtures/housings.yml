@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  Location: MyText
+  Lat: 
+  Long: 
+  Postal: MyText
+  Price: 
+
+two:
+  Location: MyText
+  Lat: 
+  Long: 
+  Postal: MyText
+  Price: 
