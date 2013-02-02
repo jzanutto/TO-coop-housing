@@ -42,7 +42,7 @@ end
 def call_maps(arr)
 	for iter in 0..arr.length
 		comp = arr[iter][0]
-		location[iter][1]
+		location = arr[iter][1]
 		maps_api_prefix = "http://maps.googleapis.com/maps/api/geocode/json?address="
 		maps_api_suffix = "&sensor=true"
 		comp = company.to_s.gsub("-","")
