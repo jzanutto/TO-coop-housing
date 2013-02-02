@@ -15,6 +15,9 @@ group :assets do
   gem 'nokogiri', :require => 'open-uri'
   gem 'httparty'
   gem 'json'
+  
+  gem "therubyracer"
+  gem 'less-rails'
 
   # Gems used only for assets and not required
   gem 'jquery-rails'
@@ -39,3 +42,5 @@ end
 
 # Deploy with Capistrano
 # gem 'capistrano'
+
+

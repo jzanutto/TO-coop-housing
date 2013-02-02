@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TOCoopHousing</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+    <title>Toronto Co-op Housing</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false" %>
+    <%= javascript_include_tag "application" %>
+    
+    <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+<article id="app">
+    <aside class="controls">
+        <h1>Use this tool to help you find the relative living costs of living <span>x</span> distance from <span>y</span> company.</h1>
+        <form>
+            <ul>
+                <li>
+                    <label for="company">Company<span>Where do you want to work?</span></label>
+                    <select name="company" id="company">
+                        <option value="-1"></option>
+                        <option value="1">Xtreme Labs</option>
+                        <option value="2">Tagged</option>
+                        <option value="3">A Thinking Ape</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="distance">Distance<span>How far are you willing to live</span></label>
+                    <select name="distance" id="distance" title="How far you are willing to live">
+                        <option value="-1"></option>
+                        <option value="1">1 km</option>
+                        <option value="5">5 km</option>
+                        <option value="10">10 km</option>
+                        <option value="20">20 km</option>
+                    </select>
+                </li>
+            </ul>   
+        </form>
+    </aside>
+    <div id="map"></div>
+</article>
 
 </body>
 </html>
