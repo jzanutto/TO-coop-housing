@@ -1,7 +1,9 @@
 TOCoopHousing::Application.routes.draw do
-  get "map/search"
-
-  get "map/update"
+    
+  get "map/index"
+  match "/" => "map#index"
+  match "map/update" => "map#update"
+  match "map/search" => "map#search"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
