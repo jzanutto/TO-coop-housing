@@ -1,4 +1,8 @@
 TOCoopHousing::Application.routes.draw do
+  get "map/search"
+
+  get "map/update"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
