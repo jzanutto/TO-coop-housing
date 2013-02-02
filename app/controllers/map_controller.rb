@@ -25,7 +25,7 @@ class MapController < ApplicationController
         distance = coorDist(lat, long, house["lat"],house["long"])
   #     puts "\n\n\n\n\n\n\n\n\n"+distance.to_s
         @houses << house unless distance.to_f  > params[:distance].to_f
-        average += house["price"] unless distance.to_f > params[:distance].to_f
+        average += house["price"] unless distance.to_f > params[:distance].to_f || house["price"] > 5000.00
       end
       average/=@houses.length;
       render :json => {houses: @houses.to_json, avg: average} and return unless @houses.blank?

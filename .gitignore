@@ -16,6 +16,7 @@
 
 # Ignore swap files
 *.swp
-
+*.dump
+*.dumpU
 config/database.yml
 logfile
