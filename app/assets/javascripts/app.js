@@ -26,11 +26,11 @@
         };
     };
 
-    companySet = function() {
+    isCompanySet = function() {
         return parseInt($('#company').val()) != -1;
     };
 
-    distanceSet = function() {
+    isDistanceSet = function() {
         return parseInt($('#distance').val()) != -1;
     };
 
@@ -105,7 +105,7 @@
     updateOutput = function() {
         clearMarkers();
 
-        if (companySet() && distanceSet())
+        if (isCompanySet() && isDistanceSet())
         {
             var distance    = parseInt($('#distance').val()); // user specified radius in kilometers
             var companyName = $('#company option:selected').text();
@@ -122,6 +122,13 @@
                 strokeOpacity:  0.4,
                 strokeWeight:   1,
                 radius:         radius
+            });
+
+            // center point
+            var companyPosition = new google.maps.Marker({
+                clickable:      false,
+                map:            map,
+                position:       currentCenter
             });
 
             // heatmap
@@ -145,9 +152,9 @@
             ];
 
             var heatmap = new google.maps.visualization.HeatmapLayer({
-                data:       heatMapData
+                data:       heatMapData,
+                map:        map
             });
-            heatmap.setMap(map);
 
             // living cost
             var costAverage = 0;
@@ -160,6 +167,7 @@
             $('#app ul').append(costOutput);
 
             markers.push(companyArea);
+            markers.push(companyPosition);
             markers.push(heatmap);
         }
     };

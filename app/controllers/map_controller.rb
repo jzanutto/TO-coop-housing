@@ -8,11 +8,12 @@ class MapController < ApplicationController
   # find the proximity of items to the company
   def search
     params[:company] ||= 0
-    @company = Company.find(params[:company])
+    @company = Company.find(params[:company]).to_json
     @company = JSON.parse(@company)[0]
     # render :json => @company.to_json and return unless @company.blank?
     # render :json => {error: "No record  found"}, status: :not_found and return if @company.blank?
     @houses = []
+
     unless @company.blank?
       lat = @company["lat"]
       long = @company["long"]
