@@ -5,27 +5,38 @@ require 'json'
 #name, lat , long, location
 def grab_html()
 	i = 0
-	url = "http://www.simplyhired.ca/a/jobs/list/lc-Toronto/ls-ON/mi-31/pn-#{i}"
+	url = "http://www.simplyhired.ca/a/jobs/list/q-programmer/lc-Toronto/ls-ON/mi-31/pn-#{i}"
 	url_prefix = "http://www.simplyhired.ca"
 	arr = []
 	while(!is_invalid(url))
 		html = Nokogiri::HTML(open(url))
 		company_childs = html.css("ul#jobs").css("div.job").css("div").css("span.company").children
 		location_childs = html.css("ul#jobs").css("div.job").css("div").css("span.location").children
-		fillArr(arr,company_childs,location_childs)
-		url = "http://www.simplyhired.ca/a/jobs/list/lc-Toronto/ls-ON/mi-31/pn-#{i=i+1}"
+		arr = fillArr(arr,company_childs,location_childs)
+		url = "http://www.simplyhired.ca/a/jobs/list/q-programmer/lc-Toronto/ls-ON/mi-31/pn-#{i=i+1}"
 	end
-	call_maps(arr)
+	#call_maps(arr)
+	arr.each do |x|
+		puts x[0].to_s << " " << x[1].to_s
+	end
 end
 
 def fillArr(array, company_childs,location_childs)
 	temp_arr = []
 	for i in 0..company_childs.length
+		temp_arr = []
 		temp_arr << company_childs[i]
 		temp_arr << location_childs[i]
-		array << temp_arr if !array.include?(temp_arr)
+		array << temp_arr if not_in_array(array,temp_arr)
 	end
 	return array
+end
+
+def not_in_array(array,temp)
+	array.each do |a|
+		return false if a[0] == temp[0] && a[1] == temp[1]
+	end
+	return true	
 end
 
 def call_maps(arr)
