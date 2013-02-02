@@ -14,14 +14,14 @@ body,
 }
 
 #app{
+    color: @body;
+    font-size: 13px;
     display: block;
+    line-height: 20px;
     position: relative;
     
     .controls{
         @controlBoxWidth: 300px;
-
-        font-size: 13px;
-        color: @body;
 
         background: @white;
         box-shadow: 1px 2px 8px @shadow;
@@ -102,7 +102,8 @@ body,
                     strong {
                         font-size: 32px;
                         display: block;
-                        margin-top: 5px;
+                        line-height: 40px;
+                        margin-top: 10px;
                     }
                 }
             }

@@ -43,6 +43,7 @@
                     var newOption = $('<option>');
                     newOption.attr({
                         "value":        company[i].id,
+                        "data-addr":    company[i].location,
                         "data-lat":     company[i].lat,
                         "data-lng":     company[i].long
                     });
@@ -50,6 +51,9 @@
 
                     container.append(newOption);
                 };
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                alert(textStatus);
             }
         });
     };
@@ -99,16 +103,15 @@
 
         map.setCenter(currentCenter);
         map.setZoom(newZoom);
-        updateOutput();
+        updateMarkers();
     };
 
-    updateOutput = function() {
+    updateMarkers = function() {
         clearMarkers();
 
         if (isCompanySet() && isDistanceSet())
         {
             var distance    = parseInt($('#distance').val()); // user specified radius in kilometers
-            var companyName = $('#company option:selected').text();
 
             // circle
             var radius      = distance * 1000; // maps API require circle radius in meters
@@ -124,11 +127,19 @@
                 radius:         radius
             });
 
-            // center point
-            var companyPosition = new google.maps.Marker({
-                clickable:      false,
+            // center point marker
+            var companyName = $('#company option:selected').text();
+            var companyAddr = $('#company option:selected').attr('data-addr');
+            var companyMarker = new google.maps.Marker({
                 map:            map,
-                position:       currentCenter
+                position:       currentCenter,
+                title:          companyName
+            });
+            var infowindow = new google.maps.InfoWindow({
+                content: '<strong style="display:block">' + companyName + '</strong><span style="display:block">' + companyAddr + '</span>'
+            });
+            google.maps.event.addListener(companyMarker, 'click', function() {
+                infowindow.open(map, companyMarker);
             });
 
             $.ajax({
@@ -138,12 +149,10 @@
                     distance:   distance
                 },
                 success: function(data) {
-                    console.log(data);
-
                     // living cost
                     var costAverage = data.avg;
-                    var costOutput = $('<li class="cost">');
-                    costOutput.append('<span>Average cost of living ' + distance + ' km from ' + companyName + ' is </span>')
+                    var costOutput  = $('<li class="cost">');
+                    costOutput.append('<span>Average monthly rent of living ' + distance + ' km from ' + companyName + ' is:</span>')
                     costOutput.append('<strong>$' + costAverage.toFixed(2) + '</strong>');
                     $('#app ul').find('.cost').remove();
                     $('#app ul').append(costOutput);
@@ -157,11 +166,10 @@
                             weight:     houses[i].price / costAverage
                         });
                     };
-
                     var heatmap = new google.maps.visualization.HeatmapLayer({
                         data:       heatMapData,
                         map:        map,
-                        radius:     40 / distance
+                        radius:     Math.max(40 / distance, 15)
                     });
                     markers.push(heatmap);
                 },
@@ -171,7 +179,7 @@
             });
 
             markers.push(companyArea);
-            markers.push(companyPosition);
+            markers.push(companyMarker);
         }
     };
 
