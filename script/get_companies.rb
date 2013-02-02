@@ -9,7 +9,6 @@ def grab_html()
 	url_prefix = "http://www.simplyhired.ca"
 	arr = []
 	while(!is_invalid(url))
-		puts url
 		html = Nokogiri::HTML(open(url))
 		company_childs = html.css("ul#jobs").css("div.job").css("div").css("span.company").children
 		location_childs = html.css("ul#jobs").css("div.job").css("div").css("span.location").children
@@ -20,6 +19,7 @@ def grab_html()
 end
 
 def fillArr(array, company_childs,location_childs)
+	temp_arr = []
 	for i in 0..company_childs.length
 		temp_arr << company_childs[i]
 		temp_arr << location_childs[i]
