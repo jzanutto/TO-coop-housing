@@ -1,7 +1,7 @@
 @white:     #fff;
 @shadow:    rgba(0, 0, 0, 0.2);
 @body:      #333;
-@special:   blue;
+@special:   #1F596D;
 
 @padding:   40px;
 
@@ -55,11 +55,13 @@ body,
 
                 h1{
                     font-size: 18px;
+                    font-weight: normal;
                     line-height: 24px;
                     margin: (@padding / 2) 0;
 
                     span{
                         color: @special;
+                        font-weight: bold;
                         text-transform: uppercase;
                     }
                 }
@@ -77,6 +79,7 @@ body,
                     width: @controlBoxWidth - @selectWidth - @selectHeight;
 
                     span{
+                        color: lighten(@body, 20%);
                         display: block;
                         font-size: 9px;
                         font-weight: normal;
@@ -93,6 +96,14 @@ body,
                     margin-left: @selectHeight;
                     padding: 2px;
                     width: @selectWidth; height: @selectHeight;
+                }
+
+                &.cost {
+                    strong {
+                        font-size: 32px;
+                        display: block;
+                        margin-top: 5px;
+                    }
                 }
             }
         }

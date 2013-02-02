@@ -99,15 +99,17 @@
 
         map.setCenter(currentCenter);
         map.setZoom(newZoom);
-        updateMarkers();
+        updateOutput();
     };
 
-    updateMarkers = function() {
+    updateOutput = function() {
         clearMarkers();
-        var distance = parseInt($('#distance').val()); // user specified radius in kilometers
 
         if (companySet() && distanceSet())
         {
+            var distance    = parseInt($('#distance').val()); // user specified radius in kilometers
+            var companyName = $('#company option:selected').text();
+
             // circle
             var radius      = distance * 1000; // maps API require circle radius in meters
             var companyArea = new google.maps.Circle({
@@ -124,22 +126,38 @@
 
             // heatmap
             var heatMapData = [
-                {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5}, new google.maps.LatLng(37.782, -122.445),
-                {location: new google.maps.LatLng(37.782, -122.443), weight: 2},
-                {location: new google.maps.LatLng(37.782, -122.441), weight: 3},
-                {location: new google.maps.LatLng(37.782, -122.439), weight: 2}, new google.maps.LatLng(37.782, -122.437),
-                {location: new google.maps.LatLng(37.782, -122.435), weight: 0.5},
-                {location: new google.maps.LatLng(37.785, -122.447), weight: 3},
-                {location: new google.maps.LatLng(37.785, -122.445), weight: 2}, new google.maps.LatLng(37.785, -122.443),
-                {location: new google.maps.LatLng(37.785, -122.441), weight: 0.5}, new google.maps.LatLng(37.785, -122.439),
-                {location: new google.maps.LatLng(37.785, -122.437), weight: 2},
-                {location: new google.maps.LatLng(37.785, -122.435), weight: 3}
+                {
+                    location: new google.maps.LatLng(43.782, -79.447), 
+                    weight: 0.5
+                },
+                {
+                    location: new google.maps.LatLng(43.782, -79.443), 
+                    weight: 2
+                },
+                {location: new google.maps.LatLng(43.782, -79.441), weight: 3},
+                {location: new google.maps.LatLng(43.782, -79.439), weight: 2},
+                {location: new google.maps.LatLng(43.782, -79.435), weight: 0.5},
+                {location: new google.maps.LatLng(43.785, -79.447), weight: 3},
+                {location: new google.maps.LatLng(43.785, -79.445), weight: 2},
+                {location: new google.maps.LatLng(43.785, -79.441), weight: 0.5},
+                {location: new google.maps.LatLng(43.785, -79.437), weight: 2},
+                {location: new google.maps.LatLng(43.785, -79.435), weight: 3}
             ];
 
             var heatmap = new google.maps.visualization.HeatmapLayer({
-                data: heatMapData
+                data:       heatMapData
             });
             heatmap.setMap(map);
+
+            // living cost
+            var costAverage = 0;
+            var costSign = '$';
+            var costOutput = $('<li class="cost">');
+            costOutput.append('<span>Average cost of living ' + distance + ' km from ' + companyName + ' is </span>')
+            costOutput.append('<strong>' + costSign + costAverage + '</strong>');
+
+            $('#app ul').find('.cost').remove();
+            $('#app ul').append(costOutput);
 
             markers.push(companyArea);
             markers.push(heatmap);
