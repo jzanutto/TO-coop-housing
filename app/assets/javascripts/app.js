@@ -36,8 +36,8 @@
 
     getCompanies = function() {
         $.ajax({
-            url:        "/map/search/all",
-            success:    function (company) {
+            url: '/map/search/all',
+            success: function (company) {
                 var container = $('#company');
                 for (var i = company.length - 1; i >= 0; i--) {
                     var newOption = $('<option>');
@@ -131,44 +131,47 @@
                 position:       currentCenter
             });
 
-            // heatmap
-            var heatMapData = [
-                {
-                    location: new google.maps.LatLng(43.782, -79.447), 
-                    weight: 0.5
+            $.ajax({
+                url:            '/map/search',
+                data: {
+                    company:    parseInt($('#company').val()),
+                    distance:   distance
                 },
-                {
-                    location: new google.maps.LatLng(43.782, -79.443), 
-                    weight: 2
-                },
-                {location: new google.maps.LatLng(43.782, -79.441), weight: 3},
-                {location: new google.maps.LatLng(43.782, -79.439), weight: 2},
-                {location: new google.maps.LatLng(43.782, -79.435), weight: 0.5},
-                {location: new google.maps.LatLng(43.785, -79.447), weight: 3},
-                {location: new google.maps.LatLng(43.785, -79.445), weight: 2},
-                {location: new google.maps.LatLng(43.785, -79.441), weight: 0.5},
-                {location: new google.maps.LatLng(43.785, -79.437), weight: 2},
-                {location: new google.maps.LatLng(43.785, -79.435), weight: 3}
-            ];
+                success: function(data) {
+                    console.log(data);
 
-            var heatmap = new google.maps.visualization.HeatmapLayer({
-                data:       heatMapData,
-                map:        map
+                    // living cost
+                    var costAverage = data.avg;
+                    var costOutput = $('<li class="cost">');
+                    costOutput.append('<span>Average cost of living ' + distance + ' km from ' + companyName + ' is </span>')
+                    costOutput.append('<strong>$' + costAverage.toFixed(2) + '</strong>');
+                    $('#app ul').find('.cost').remove();
+                    $('#app ul').append(costOutput);
+
+                    // heatmap
+                    var heatMapData = [];
+                    var houses = data.houses;
+                    for (var i = houses.length - 1; i >= 0; i--) {
+                        heatMapData.push({
+                            location:   new google.maps.LatLng(parseFloat(houses[i].lat), parseFloat(houses[i].long)),
+                            weight:     houses[i].price / costAverage
+                        });
+                    };
+
+                    var heatmap = new google.maps.visualization.HeatmapLayer({
+                        data:       heatMapData,
+                        map:        map,
+                        radius:     40 / distance
+                    });
+                    markers.push(heatmap);
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
             });
-
-            // living cost
-            var costAverage = 0;
-            var costSign = '$';
-            var costOutput = $('<li class="cost">');
-            costOutput.append('<span>Average cost of living ' + distance + ' km from ' + companyName + ' is </span>')
-            costOutput.append('<strong>' + costSign + costAverage + '</strong>');
-
-            $('#app ul').find('.cost').remove();
-            $('#app ul').append(costOutput);
 
             markers.push(companyArea);
             markers.push(companyPosition);
-            markers.push(heatmap);
         }
     };
 
