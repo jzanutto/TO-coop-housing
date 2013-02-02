@@ -1,11 +1,11 @@
 class CreateCompanies < ActiveRecord::Migration
-  def change
+  def up
     create_table :companies do |t|
-      t.text :Name
-      t.text :Location
-      t.real :Lat
-      t.real :Long
-      t.text :Postal
+      t.string :Name
+      t.string :Location
+      t.float :Lat
+      t.float :Long
+      t.string :Postal
 
       t.timestamps
     end

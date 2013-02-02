@@ -1,11 +1,11 @@
 class CreateHousings < ActiveRecord::Migration
-  def change
+  def up
     create_table :housings do |t|
-      t.text :Location
-      t.real :Lat
-      t.real :Long
-      t.text :Postal
-      t.real :Price
+      t.string :Location
+      t.float :Lat
+      t.float :Long
+      t.string :Postal
+      t.float :Price
 
       t.timestamps
     end
