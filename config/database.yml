@@ -3,7 +3,8 @@ development:
   encoding: unicode
   database: TO-coop-housing_development
   pool: 5
-  username: stephen
+  username: genius
+  password: '123fuckyourself'
   timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
@@ -15,5 +16,5 @@ production:
   encoding: unicode
   database: TO-coop-housing
   pool: 5
-  username: stephen
+  username: genius
   timeout: 5000
