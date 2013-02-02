@@ -1,8 +1,4 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-;
-// This is a manifest file that'll be compiled into application.js, which will include all the files
+//jashkenas.github.com/coffee-script/
 // listed below.
 //
 // Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
@@ -16,4 +12,3 @@
 //
 
 
-;
