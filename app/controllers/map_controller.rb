@@ -12,6 +12,7 @@ class MapController < ApplicationController
     # render :json => @company.to_json and return unless @company.blank?
     # render :json => {error: "No record  found"}, status: :not_found and return if @company.blank?
     @houses = []
+
     unless @company.nil?
       lat = @company["lat"]
       long = @company["long"]
@@ -25,10 +26,10 @@ class MapController < ApplicationController
         distance = coorDist(lat, long, house["lat"],house["long"])
   #     puts "\n\n\n\n\n\n\n\n\n"+distance.to_s
         @houses << house unless distance.to_f  > params[:distance].to_f
-        average += house["price"] unless distance.to_f > params[:distance].to_f || house["price"] > 5000.00
+        average += house["price"] unless distance.to_f > params[:distance].to_f || house["price"] > 2000.00
       end
       average/=@houses.length;
-      render :json => {houses: @houses.to_json, avg: average} and return unless @houses.blank?
+      render :json => {houses: @houses, avg: average} and return unless @houses.blank?
       render :json => {error: "No houses found :("}, status: :not_found
     else
       render :json => {error: "No companies found :/"}, status: :not_found
@@ -38,7 +39,9 @@ class MapController < ApplicationController
   # get all companies
   def all_companies
     @companies = []
-    Company.all.each do |comp|
+    @sortedCompanies = Company.all.sort_by &:name
+
+    @sortedCompanies.reverse_each do |comp|
       comp = comp.to_json 
       @companies << JSON.parse(comp)
       puts comp 
@@ -53,6 +56,15 @@ class MapController < ApplicationController
   # google API request to find the lat/long of the company
   def find_company_by_address
   end
+
+  #
+  # Author: almartin <alex.m.martineau@gmail.com>
+  # Version: 1.0
+  # Date: 03/14/2011
+  # Language: Ruby
+  # Descrption: Example script implementing Haversine formula to identify distance in KM between 2 coordinates
+  # Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+  #
   def coorDist(lat1, lon1, lat2, lon2)
 
       earthRadius = 6371 # Earth's radius in KM
