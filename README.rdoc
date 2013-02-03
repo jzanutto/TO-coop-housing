@@ -33,3 +33,7 @@ We're working with a jQuery front end, rails is our webservice and we have postg
 === IMPORTING THE DATA AND CHANGING THE SCHEMA
 
 This was done mid-way through the hack (because I'm stingy for some reason).  You have to open postgres and remove the created_at and updated_at columns in order to correctly import the data, then you run a copy command on the system to export the csv files saved into scripts into their proper tables.
+
+=== LICENSE
+GPL v3.0
+see license.txt
